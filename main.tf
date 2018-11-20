@@ -44,7 +44,7 @@ resource "aws_lb" "lb" {
 # =========================== LAUNCH CONFIGURATION ===========================
 
 resource "aws_launch_configuration" "launch_config" {
-  name                    = "launch_config"
+  name                    = "DevOps-launchconfig8"
   image_id                = "${var.app_ami_id}"
   instance_type           = "t2.micro"
   user_data               = "${data.template_file.app_init.rendered}"
@@ -60,7 +60,6 @@ resource "aws_launch_configuration" "launch_config" {
 # =========================== LAUNCH TEMPLATE ===========================
 
 resource "aws_launch_template" "launch_template" {
-  name_prefix             = "launch_template"
   image_id                = "${var.app_ami_id}"
   instance_type           = "t2.micro"
   key_name                = "DevOpsStudents"
@@ -71,12 +70,16 @@ resource "aws_launch_template" "launch_template" {
 # =========================== AUTOSCALING GROUP ===========================
 
 resource "aws_autoscaling_group" "autoscaling_group" {
-  name                    = "autoscaling_group"
+  name                    = "autoscaling_group - ${aws_launch_configuration.launch_config.name}"
   availability_zones      = ["eu-west-1a","eu-west-1b","eu-west-1c"]
   vpc_zone_identifier     = ["${module.app.subnet_id_1a}", "${module.app.subnet_id_1b}", "${module.app.subnet_id_1c}"]
   desired_capacity        = 2
   max_size                = 3
-  min_size                = 1
+  min_size                = 2
+  health_check_grace_period = 300
+  health_check_type       = "ELB"
+  termination_policies    = ["OldestInstance" , "Default"]
+  wait_for_elb_capacity   = 2
 
   launch_template = {
     id                    = "${aws_launch_template.launch_template.id}"
@@ -91,12 +94,21 @@ resource "aws_autoscaling_group" "autoscaling_group" {
 
     lifecycle {
       create_before_destroy   = true
+
     }
   }
 
   resource "aws_autoscaling_attachment" "autoscaling_attachment" {
   alb_target_group_arn   = "${aws_lb_target_group.target_group.arn}"
   autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group.id}"
+}
+
+resource "aws_autoscaling_policy" "bat" {
+  name                   = "foobar3-terraform-test"
+  scaling_adjustment     = 2
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 600
+  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group.name}"
 }
 
   # =========================== LB TARGET GROUP ===========================

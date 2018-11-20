@@ -1,16 +1,16 @@
 
 # =========================== INSTANCES ===========================
-resource "aws_instance" "app-eu-west-1a" {
-  ami                     = "${var.ami_id}"
-  subnet_id               = "${aws_subnet.app-eu-west-1a.id}"
-  instance_type           = "t2.micro"
-  vpc_security_group_ids  = ["${aws_security_group.app_security_group.id}"]
-  user_data               = "${var.user_data}"
-  key_name                = "DevOpsStudents"
-  tags {
-    Name                  = "app_1a"
-  }
-}
+# resource "aws_instance" "app-eu-west-1a" {
+#   ami                     = "${var.ami_id}"
+#   subnet_id               = "${aws_subnet.app-eu-west-1a.id}"
+#   instance_type           = "t2.micro"
+#   vpc_security_group_ids  = ["${aws_security_group.app_security_group.id}"]
+#   user_data               = "${var.user_data}"
+#   key_name                = "DevOpsStudents"
+#   tags {
+#     Name                  = "app_1a"
+#   }
+# }
 # resource "aws_instance" "app-eu-west-1b" {
 #   ami                     = "${var.ami_id}"
 #   subnet_id               = "${aws_subnet.app-eu-west-1b.id}"
