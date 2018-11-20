@@ -44,7 +44,7 @@ resource "aws_lb" "lb" {
 # =========================== LAUNCH CONFIGURATION ===========================
 
 resource "aws_launch_configuration" "launch_config" {
-  name                    = "DevOps-launchconfig8"
+  name                    = "DevOps-launchconfig10"
   image_id                = "${var.app_ami_id}"
   instance_type           = "t2.micro"
   user_data               = "${data.template_file.app_init.rendered}"
@@ -74,12 +74,12 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   availability_zones      = ["eu-west-1a","eu-west-1b","eu-west-1c"]
   vpc_zone_identifier     = ["${module.app.subnet_id_1a}", "${module.app.subnet_id_1b}", "${module.app.subnet_id_1c}"]
   desired_capacity        = 2
-  max_size                = 3
+  max_size                = 5
   min_size                = 2
   health_check_grace_period = 300
   health_check_type       = "ELB"
-  termination_policies    = ["OldestInstance" , "Default"]
-  wait_for_elb_capacity   = 2
+  # termination_policies    = ["OldestInstance" , "Default"]
+  # wait_for_elb_capacity   = 2
 
   launch_template = {
     id                    = "${aws_launch_template.launch_template.id}"
@@ -105,12 +105,53 @@ resource "aws_autoscaling_group" "autoscaling_group" {
 
 resource "aws_autoscaling_policy" "bat" {
   name                   = "foobar3-terraform-test"
-  scaling_adjustment     = 2
+  scaling_adjustment     = 7
   adjustment_type        = "ChangeInCapacity"
   cooldown               = 600
   autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group.name}"
 }
 
+# =====================================TEST GREEN
+resource "aws_launch_template" "launch_template1" {
+  image_id                = "${var.app1_ami_id}"
+  instance_type           = "t2.micro"
+  key_name                = "DevOpsStudents"
+  vpc_security_group_ids  = ["${module.app.security_group}"]
+  user_data               = "${base64encode(module.app.user_data)}"
+}
+
+resource "aws_autoscaling_group" "autoscaling_group1" {
+  name                    = "autoscaling_group1 - ${aws_launch_configuration.launch_config.name}"
+  availability_zones      = ["eu-west-1a","eu-west-1b","eu-west-1c"]
+  vpc_zone_identifier     = ["${module.app.subnet_id_1a}", "${module.app.subnet_id_1b}", "${module.app.subnet_id_1c}"]
+  desired_capacity        = 2
+  max_size                = 5
+  min_size                = 2
+  health_check_grace_period = 300
+  health_check_type       = "ELB"
+  # termination_policies    = ["OldestInstance" , "Default"]
+  # wait_for_elb_capacity   = 2
+
+  launch_template = {
+    id                    = "${aws_launch_template.launch_template1.id}"
+    version               = "$$Latest"
+  }
+
+  tags = [{
+    key                   = "Name"
+    value                 = "DevOps-instance"
+    propagate_at_launch   = true
+    }]
+
+    lifecycle {
+      create_before_destroy   = true
+
+    }
+  }
+  resource "aws_autoscaling_attachment" "autoscaling_attachment1" {
+  alb_target_group_arn   = "${aws_lb_target_group.target_group.arn}"
+  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group1.id}"
+}
   # =========================== LB TARGET GROUP ===========================
 
   resource "aws_lb_target_group" "target_group" {
