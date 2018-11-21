@@ -68,7 +68,7 @@ resource "aws_launch_template" "launch_template" {
 
 # =========================== AUTOSCALING GROUP ===========================
 
-resource "aws_autoscaling_group" "autoscaling_group" {
+resource "aws_autoscaling_group" "autoscaling_groupBlue" {
   name                    = "autoscaling_group - ${aws_launch_configuration.launch_config.name}"
   availability_zones      = ["eu-west-1a","eu-west-1b","eu-west-1c"]
   vpc_zone_identifier     = ["${module.app.subnet_id_1a}", "${module.app.subnet_id_1b}", "${module.app.subnet_id_1c}"]
@@ -99,7 +99,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
 
   resource "aws_autoscaling_attachment" "autoscaling_attachment" {
   alb_target_group_arn   = "${aws_lb_target_group.target_group.arn}"
-  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group.id}"
+  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_groupBlue.id}"
 }
 
 # resource "aws_autoscaling_policy" "bat" {

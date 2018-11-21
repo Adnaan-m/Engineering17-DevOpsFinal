@@ -80,8 +80,8 @@ resource "aws_launch_template" "launch_template1" {
   user_data               = "${base64encode(var.user_data)}"
 }
 
-resource "aws_autoscaling_group" "autoscaling_group1" {
-  name                    = "autoscaling_group1 - ${aws_launch_configuration.launch_config.name}"
+resource "aws_autoscaling_group" "autoscaling_groupGreen" {
+  name                    = "autoscaling_groupGreen - ${aws_launch_configuration.launch_config.name}"
   availability_zones      = ["eu-west-1a","eu-west-1b","eu-west-1c"]
   vpc_zone_identifier     = ["${var.subnet_id_1a}", "${var.subnet_id_1b}", "${var.subnet_id_1c}"]
   desired_capacity        = 2
@@ -109,7 +109,7 @@ resource "aws_autoscaling_group" "autoscaling_group1" {
   }
   resource "aws_autoscaling_attachment" "autoscaling_attachment1" {
   alb_target_group_arn   = "${aws_lb_target_group.target_group.arn}"
-  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group1.id}"
+  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_groupGreen.id}"
 }
   # =========================== LB TARGET GROUP ===========================
 
