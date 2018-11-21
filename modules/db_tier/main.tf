@@ -65,7 +65,7 @@ resource "aws_security_group" "db_security_group" {
   }
 }
 
-# =========================== ROUTE TABLES ===========================
+# =========================== ROUTE TABLES ============================
 
 resource "aws_route_table" "db_route_table" {
   vpc_id                  = "${var.vpc_id}"
