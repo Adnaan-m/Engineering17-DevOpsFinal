@@ -18,3 +18,9 @@ variable "app1_ami_id" {
   default = "ami-03b715834d64be8c0"
   # default = "ami-055c1755b888344f7"
 }
+
+variable "user_data" {
+  description = "user data"
+  type        = "string"
+  default     = ""
+}
