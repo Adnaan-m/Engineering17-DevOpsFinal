@@ -42,7 +42,7 @@ resource "aws_lb" "lb" {
 }
 
 # =========================== LAUNCH CONFIGURATION ===========================
-
+# 
 resource "aws_launch_configuration" "launch_config" {
   image_id                = "${var.app_ami_id}"
   instance_type           = "t2.micro"
