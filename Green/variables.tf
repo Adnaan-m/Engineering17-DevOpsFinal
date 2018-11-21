@@ -24,3 +24,19 @@ variable "user_data" {
   type        = "string"
   default     = ""
 }
+
+variable "subnet_id_1a" {
+  default = "subnet-0263411b742e71107"
+}
+
+variable "subnet_id_1b" {
+  default = "subnet-00091a3391d46bc93"
+}
+
+variable "subnet_id_1c" {
+  default = "subnet-0b685c24e513b064f"
+}
+
+variable "security_group" {
+  default = "sg-003f9aae31b263a1c"
+}
