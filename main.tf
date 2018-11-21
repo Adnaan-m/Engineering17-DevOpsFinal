@@ -103,13 +103,13 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group.id}"
 }
 
-resource "aws_autoscaling_policy" "bat" {
-  name                   = "foobar3-terraform-test"
-  scaling_adjustment     = 7
-  adjustment_type        = "ChangeInCapacity"
-  cooldown               = 600
-  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group.name}"
-}
+# resource "aws_autoscaling_policy" "bat" {
+#   name                   = "foobar3-terraform-test"
+#   scaling_adjustment     = 7
+#   adjustment_type        = "ChangeInCapacity"
+#   cooldown               = 600
+#   autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group.name}"
+# }
 
 # =====================================TEST GREEN
 resource "aws_launch_template" "launch_template1" {
@@ -164,15 +164,6 @@ resource "aws_autoscaling_group" "autoscaling_group1" {
       enabled = false
     }
   }
-
-  # =========================== LB TARGET GROUP ATTACHMENT ===========================
-
-
-  # resource "aws_lb_target_group_attachment" "target_attach" {
-  #   target_group_arn = "${aws_lb_target_group.target_group.arn}"
-  #   target_id       = "${aws_launch_template.launch_template.id}"
-  #   port             = 80
-  # }
 
   # =========================== LB LISTENER ===========================
 
