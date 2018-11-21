@@ -54,6 +54,12 @@ resource "aws_security_group" "db_security_group" {
     protocol              = "-1"
     cidr_blocks           = ["0.0.0.0/0"]
   }
+  egress {
+    from_port             = 0
+    to_port               = 0
+    protocol              = "-1"
+    cidr_blocks           = ["10.0.201.0/24", "10.0.202.0/24", "10.0.203.0/24"]
+  }
   tags {
     Name                  = "db_security_group_DevOps"
   }

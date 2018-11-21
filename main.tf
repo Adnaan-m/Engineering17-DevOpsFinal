@@ -127,7 +127,7 @@ resource "aws_autoscaling_group" "autoscaling_group1" {
   max_size                = 5
   min_size                = 2
   health_check_grace_period = 300
-  health_check_type       = "ELB"
+  health_check_type       = "EC2"
   # termination_policies    = ["OldestInstance" , "Default"]
   # wait_for_elb_capacity   = 2
 
