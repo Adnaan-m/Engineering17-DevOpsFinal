@@ -73,7 +73,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   availability_zones      = ["eu-west-1a","eu-west-1b","eu-west-1c"]
   vpc_zone_identifier     = ["${module.app.subnet_id_1a}", "${module.app.subnet_id_1b}", "${module.app.subnet_id_1c}"]
   desired_capacity        = 2
-  max_size                = 5
+  max_size                = 3
   min_size                = 2
   health_check_grace_period = 300
   health_check_type       = "ELB"
@@ -124,7 +124,7 @@ resource "aws_autoscaling_group" "autoscaling_group1" {
   availability_zones      = ["eu-west-1a","eu-west-1b","eu-west-1c"]
   vpc_zone_identifier     = ["${module.app.subnet_id_1a}", "${module.app.subnet_id_1b}", "${module.app.subnet_id_1c}"]
   desired_capacity        = 2
-  max_size                = 5
+  max_size                = 3
   min_size                = 2
   health_check_grace_period = 300
   health_check_type       = "EC2"
@@ -144,7 +144,6 @@ resource "aws_autoscaling_group" "autoscaling_group1" {
 
     lifecycle {
       create_before_destroy   = true
-
     }
   }
   resource "aws_autoscaling_attachment" "autoscaling_attachment1" {
