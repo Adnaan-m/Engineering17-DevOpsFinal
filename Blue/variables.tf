@@ -34,3 +34,9 @@ variable "subnet_id_1c" {
 variable "security_group" {
   default = "sg-003f9aae31b263a1c"
 }
+
+variable "user_data" {
+  description = "user data"
+  type        = "string"
+  default     = ""
+}
