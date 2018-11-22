@@ -70,7 +70,7 @@ resource "aws_launch_template" "launch_template1" {
 }
 
 resource "aws_autoscaling_group" "autoscaling_groupGreen" {
-  name                    = "autoscaling_group - ${aws_launch_configuration.launch_config.name}"
+  name                    = "Green_Autoscaling_Group - ${aws_launch_configuration.launch_config.name}"
   availability_zones      = ["eu-west-1a","eu-west-1b","eu-west-1c"]
   vpc_zone_identifier     = ["${var.subnet_id_1a}", "${var.subnet_id_1b}", "${var.subnet_id_1c}"]
   desired_capacity        = 2
