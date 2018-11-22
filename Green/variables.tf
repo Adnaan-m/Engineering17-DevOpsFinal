@@ -26,15 +26,15 @@ variable "user_data" {
 }
 
 variable "subnet_id_1a" {
-  default = "subnet-0263411b742e71107"
+  default = "subnet-09de586363deb35d0"
 }
 
 variable "subnet_id_1b" {
-  default = "subnet-00091a3391d46bc93"
+  default = "subnet-00906a538c11249fa"
 }
 
 variable "subnet_id_1c" {
-  default = "subnet-0b685c24e513b064f"
+  default = "subnet-0c3178ade6429e378"
 }
 
 variable "security_group" {
