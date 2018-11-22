@@ -17,9 +17,9 @@ provider "aws" {
 
 data "template_file" "app_init" {
   template                = "${file("./scripts/app/init.sh.tpl")}"
-  vars {
-    db_host               = "mongodb://${module.db.db_instance}:27017/posts"
-  }
+  # vars {
+  #   db_host               = "mongodb://${module.db.db_instance}:27017/posts"
+  # }
 }
 
 data "template_file" "db_init" {
