@@ -46,10 +46,10 @@ resource "aws_lb" "lb" {
 resource "aws_launch_configuration" "launch_config" {
   image_id                = "${var.app_ami_id}"
   instance_type           = "t2.micro"
-  user_data               = "${base64encode(data.template_file.app_init.rendered)}"
+  user_data               = "${data.template_file.app_init.rendered}"
   key_name                = "DevOpsStudents"
   security_groups         = ["${var.security_group}"]
-  # user_data               = "${base64encode(var.user_data)}"
+  user_data               = "${base64encode(var.user_data)}"
 
   lifecycle {
     create_before_destroy   = true
@@ -66,7 +66,7 @@ resource "aws_launch_template" "launch_template1" {
   instance_type           = "t2.micro"
   key_name                = "DevOpsStudents"
   vpc_security_group_ids  = ["${var.security_group}"]
-  user_data               = "${var.user_data}"
+  user_data               = "${base64encode(var.user_data)}"
 }
 
 resource "aws_autoscaling_group" "autoscaling_groupGreen" {
