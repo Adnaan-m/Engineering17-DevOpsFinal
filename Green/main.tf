@@ -61,23 +61,12 @@ resource "aws_launch_configuration" "launch_config" {
 
 # =========================== AUTOSCALING GROUP ===========================
 
-
-
-# resource "aws_autoscaling_policy" "bat" {
-#   name                   = "foobar3-terraform-test"
-#   scaling_adjustment     = 7
-#   adjustment_type        = "ChangeInCapacity"
-#   cooldown               = 600
-#   autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group.name}"
-# }
-
-# =====================================TEST GREEN
 resource "aws_launch_template" "launch_template1" {
   image_id                = "${var.app1_ami_id}"
   instance_type           = "t2.micro"
   key_name                = "DevOpsStudents"
   vpc_security_group_ids  = ["${var.security_group}"]
-  user_data               = "${base64encode(var.user_data)}"
+  user_data               = "${var.user_data}"
 }
 
 resource "aws_autoscaling_group" "autoscaling_groupGreen" {

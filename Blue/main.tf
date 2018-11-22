@@ -63,7 +63,7 @@ resource "aws_launch_template" "launch_template" {
   instance_type           = "t2.micro"
   key_name                = "DevOpsStudents"
   vpc_security_group_ids  = ["${var.security_group}"]
-  user_data               = "${base64encode(var.user_data)}"
+  user_data               = "${var.user_data}"
 }
 
 # =========================== AUTOSCALING GROUP ===========================
