@@ -32,7 +32,7 @@ variable "subnet_id_1c" {
 }
 
 variable "security_group" {
-  default = "sg-050789c7166fd5a84"
+  default = "sg-067dac67b538a0a46"
 }
 
 variable "user_data" {
