@@ -15,7 +15,7 @@ variable "ig_id" {
 }
 
 variable "app1_ami_id" {
-  default = "ami-03212782b1d2a3851"
+  default = "ami-03b715834d64be8c0"
   # default = "ami-055c1755b888344f7"
 }
 
